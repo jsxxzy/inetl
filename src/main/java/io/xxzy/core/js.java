@@ -15,9 +15,14 @@ public class js {
   }
 
   public String GetString(String key) {
-    Object obj = GetVar(key);
-    String r = (String)obj;
-    return r.trim();
+    try {
+      Object obj = GetVar(key);
+      String r = (String)obj;
+      return r.trim();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "";
+    }
   }
 
   public boolean RunScript(String initScript) {

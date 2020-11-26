@@ -37,7 +37,7 @@ public class iNet {
   /**
    * 查询信息
    */
-  public boolean QueryInfo() {
+  public inetData QueryInfo() {
     HttpRequest req = HttpRequest.get(constvar.AuthBaseURL);
     if (req.ok()) {
       String htmlBody = req.body();
@@ -52,16 +52,16 @@ public class iNet {
       String title = $.title();
 
       if (title.length() == 0) {
-        System.out.println("当前未登录");
-        return false;
+//        System.out.println("当前未登录");
+        return null;
       }
       inetData inetWrap = new inetData();
       inetWrap.InitData($);
-      System.out.println("当前已登录: ");
-      return true;
+//      System.out.println("当前已登录: ");
+      return inetWrap;
     }
 
-    return false;
+    return null;
   }
 
   /**

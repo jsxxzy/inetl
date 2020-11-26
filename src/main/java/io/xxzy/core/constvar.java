@@ -43,8 +43,9 @@ public class constvar {
   static final String InfoTime = "time"; // 使用时长
   static final String InfoXip = "xip"; // 外网映射
   static final String InfoUID = "uid"; // 用户id
-  static final String InfoIpv4 = "ipv4"; // ipv4
-  static final String InfoIpv6 = "ipv6"; // ipv6
+  static final String InfoIpv4 = "v4ip"; // ipv4
+  static final String InfoIpv6 = "v6ip"; // ipv6
+  static final String InfoFlow = "flow"; // 流量
 
   static final String QueryInfoSelectText = "script[language=\"JavaScript\"]"; // 查询信息的选择器
 

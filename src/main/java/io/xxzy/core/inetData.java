@@ -38,17 +38,25 @@ public class inetData {
   public String Ipv6;
 
   /**
+   * 流量
+   */
+  public int Flow = 0;
+
+  /**
    * TODO
    * 简单的格式化一下
    */
   private String easyHumanTime(int time) {
-    if (time < 60) {
-
-    }
-    if (time == 60) {
+    int h = 60;
+    if (time == h) {
       return "1小时";
     }
-    return "";
+    if (time < h) {
+      return time + "分钟";
+    }
+    int m = time % h;
+    int nh = time / h;
+    return String.format("%s小时%s分钟", m, nh);
   }
 
   /**
@@ -61,6 +69,18 @@ public class inetData {
       return "0分钟";
     }
     return this.easyHumanTime(curr);
+  }
+
+  /**
+   * 阳间的流量
+   */
+  public String GetHumanFlow() {
+    int flow = this.Flow;
+    if (flow == 0) {
+      return "0kb";
+    }
+    long inputFlow = flow * 1024;
+    return utilsx.BytesToHuman(inputFlow);
   }
 
   /**
@@ -90,7 +110,7 @@ public class inetData {
    * 初始化
    * @param $ `Jsoup` 实例
    */
-  boolean InitData(Document $) {
+  void InitData(Document $) {
     js jsRuntime = new js();
     Elements jsData = $.select(constvar.QueryInfoSelectText);
     String jsDataText = jsData.get(0).html();
@@ -107,7 +127,11 @@ public class inetData {
     this.UID = jsRuntime.GetString(constvar.InfoUID);
     this.Xip = jsRuntime.GetString(constvar.InfoXip);
     this.Portalname = jsRuntime.GetString(constvar.InfoPortalname);
-    System.out.println(this.Portalname);
-    return false;
+    String cacheFlowData = jsRuntime.GetString(constvar.InfoFlow);
+    try {
+      this.Flow = Integer.parseInt(cacheFlowData);
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    };
   }
 }
