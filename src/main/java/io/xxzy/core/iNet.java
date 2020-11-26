@@ -31,7 +31,8 @@ public class iNet {
    * 注销
    */
   public boolean Logout() {
-    return false;
+    HttpRequest req = HttpRequest.get(constvar.LogoutURL);
+    return req.ok();
   }
 
   /**

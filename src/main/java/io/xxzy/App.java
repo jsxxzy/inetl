@@ -44,6 +44,9 @@ public class App
         System.out.printf(" 用户id: %s\n", infoData.UID);
         System.out.printf("内网地址: %s\n", infoData.Ipv4);
         break;
+      case "logout": // 注销
+        boolean flag = netSoftware.Logout();
+        System.out.println(flag ? "已注销" : "注销失败, 未知错误");
     }
   }
 }
