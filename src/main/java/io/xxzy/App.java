@@ -30,6 +30,10 @@ public class App
     String action = args[0];
     iNet netSoftware = new iNet();
     switch (action) {
+      case "check": // 查询是否登录
+        boolean isLogin = netSoftware.HasLogin();
+        System.out.println(!isLogin ? "已登录" : "未登录");
+        break;
       case "login": // 登录
         if (args.length <= 2) {
           System.out.println("请传入账号密码");

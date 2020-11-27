@@ -123,8 +123,9 @@ public class iNet {
   /**
    * 查询是否登录
    */
-  public boolean Check() {
-    return false;
+  public boolean HasLogin() {
+    inetData queryData = this.QueryInfo();
+    return queryData == null;
   }
 
 }
