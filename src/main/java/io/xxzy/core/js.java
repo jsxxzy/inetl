@@ -20,7 +20,7 @@ public class js {
       String r = (String)obj;
       return r.trim();
     } catch (Exception e) {
-      e.printStackTrace();
+//      e.printStackTrace();
       return "";
     }
   }
@@ -30,7 +30,7 @@ public class js {
       this.engine.eval(initScript);
       return true;
     }catch (ScriptException err) {
-      err.printStackTrace();
+//      err.printStackTrace();
       return false;
     }
   }

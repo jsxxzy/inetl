@@ -5,6 +5,10 @@ package io.xxzy.core;
 import com.github.kevinsawicki.http.HttpRequest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class iNet {
 
@@ -19,12 +23,63 @@ public class iNet {
     return md5 + constvar.Calg + constvar.Pid;
   }
 
+  /**
+   * 登录
+   * @param u 账号
+   * @param p 密码
+   * @return 返回消息
+   */
+  public String LoginMessage(String u, String p) {
+    int code = this.Login(u, p);
+    return constvar.GetMsg(code);
+  }
+
   
   /**
    * 登录
    */
-  public boolean Login(String u, String p) {
-    return false;
+  public int Login(String u, String p) {
+    String hex = this.CreatePassword(p);
+    Map<String, String> data = new HashMap<String, String>();
+    data.put("DDDDD", u);
+    data.put("upass", hex);
+    data.put("R1", constvar.R1);
+    data.put("R2", constvar.R2);
+    data.put("para", constvar.Para);
+    data.put("0MKKey", constvar.MKKey);
+    HttpRequest htmlBody = HttpRequest.post(constvar.LoginURL).form(data);
+    if (!htmlBody.ok()) {
+      return constvar.ErrorNoAuthCode;
+    }
+    String body = htmlBody.body();
+    Document $ = Jsoup.parse(utilsx.toUTF8(body));
+    Elements eles = $.select("SCRIPT");
+    String jsCacheCode = eles.get(2).html();
+    String jsCodeBlock = utilsx.jsCodeRemoveCommit(jsCacheCode);
+    js jsVM = new js();
+    jsVM.RunScript(jsCodeBlock);
+//    String msg;
+//    try {
+//      jsVM.engine.eval("mm = Msg.toString()");
+//    } catch (ScriptException e) {
+//      e.printStackTrace();
+//      return constvar.ErrorNoAuthCode;
+//    }
+//    msg = jsVM.GetString("mm");
+    String msga = jsVM.GetString("msga");
+//    if (msg.length() == 0 || msga.length() == 0) {
+//    if (msga.equals("")) return constvar.LoginSuccess;
+//    int code = Integer.parseInt(msg);
+//    System.out.printf("返回码: %s\n", code);
+    switch (msga) {
+      case "5":
+//        System.out.println("多台设备在线");
+        return constvar.ErrorMultipleDevicesCode;
+      case "1":
+//        System.out.println("账号密码错误");
+        return constvar.ErrorUserAuthFailCode;
+    }
+    return constvar.LoginSuccess;
   }
 
   /**

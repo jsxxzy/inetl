@@ -9,6 +9,27 @@ import java.text.DecimalFormat;
 
 public class utilsx {
 
+  /**
+   * 运营商的js写的不标准, 此函数试图去除一些不标准
+   *
+   * 一开口就老外包了...
+   *
+   * @param raw 源数据
+   * @return 正确的`js-code`
+   */
+  public static String jsCodeRemoveCommit(String raw) {
+    String cp = raw.trim();
+    String left = "<!--";
+    String right = "// -->";
+    if (cp.startsWith(left)) {
+      cp = cp.substring(left.length());
+    };
+    if (cp.endsWith(right)) {
+      int endIndex = cp.length() - right.length();
+      cp = cp.substring(0, endIndex);
+    }
+    return cp;
+  }
 
 
   public static String floatForm (double d)

@@ -83,28 +83,6 @@ public class inetData {
     return utilsx.BytesToHuman(inputFlow);
   }
 
-  /**
-   * 运营商的js写的不标准, 此函数试图去除一些不标准
-   *
-   * 一开口就老外包了...
-   *
-   * @param raw 源数据
-   * @return 正确的`js-code`
-   */
-  private String jsCodeRemoveCommit(String raw) {
-    String cp = raw.trim();
-    String left = "<!--";
-    String right = "// -->";
-    if (cp.startsWith(left)) {
-      cp = cp.substring(left.length());
-    };
-    if (cp.endsWith(right)) {
-      int endIndex = cp.length() - right.length();
-      cp = cp.substring(0, endIndex);
-    }
-    return cp;
-  }
-
 
   /**
    * 初始化
@@ -114,7 +92,7 @@ public class inetData {
     js jsRuntime = new js();
     Elements jsData = $.select(constvar.QueryInfoSelectText);
     String jsDataText = jsData.get(0).html();
-    String jsInputData = jsCodeRemoveCommit(jsDataText);
+    String jsInputData = utilsx.jsCodeRemoveCommit(jsDataText);
     jsRuntime.RunScript(jsInputData);
     String cacheTimeString = jsRuntime.GetString(constvar.InfoTime);
     try {
@@ -131,7 +109,7 @@ public class inetData {
     try {
       this.Flow = Integer.parseInt(cacheFlowData);
     } catch (NumberFormatException e) {
-      e.printStackTrace();
-    };
+//      e.printStackTrace();
+    }
   }
 }

@@ -5,17 +5,21 @@ package io.xxzy.core;
 
 public class constvar {
 
-  static String Pid = "2";
+  static final String Pid = "2";
 
-  static String Calg = "12345678";
+  static final String Calg = "12345678";
 
-  static int R1 = 0;
+  static final String R1 = "0";
 
-  static int R2 = 1;
+  static final String R2 = "1";
 
-  static String baseURL = "http://210.22.55.58";
+  static final String Para = "00";
 
-  static String createURL(String route) {
+  static final String MKKey = "123456";
+
+  static final String baseURL = "http://210.22.55.58";
+
+  static final String createURL(String route) {
     return baseURL + route;
   }
 
@@ -38,6 +42,7 @@ public class constvar {
   static final String ErrorUserAuthFail = "账号密码错误"; // 1
   static final String ErrorMultipleDevices = "多台设备同时在线"; // 5
   static final String Unknown = "未知";
+  static final String LoginSuccessMessage = "登录成功";
 
   static final String InfoPortalname = "portalname"; // 名称
   static final String InfoTime = "time"; // 使用时长
@@ -80,8 +85,10 @@ public class constvar {
    * @param code 返回代码
    * @return 消息
    */
-  static String GetMsg(int code) {
+  static final String GetMsg(int code) {
     switch (code) {
+      case LoginSuccess:
+        return LoginSuccessMessage;
       case ErrorNoAuthCode:
         return ErrorNoAuth;
       case ErrorUserAuthFailCode:

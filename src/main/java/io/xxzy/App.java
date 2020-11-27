@@ -2,7 +2,6 @@
 
 package io.xxzy;
 
-
 import io.xxzy.core.iNet;
 import io.xxzy.core.inetData;
 
@@ -31,7 +30,17 @@ public class App
     String action = args[0];
     iNet netSoftware = new iNet();
     switch (action) {
-      case "login":
+      case "login": // 登录
+        if (args.length <= 2) {
+          System.out.println("请传入账号密码");
+          return;
+        }
+        String u = args[1];
+        String p = args[2];
+        String msg = netSoftware.LoginMessage(
+          u, p
+        );
+        System.out.println(msg);
         break;
       case "info": // 查询信息
         inetData infoData = netSoftware.QueryInfo();
