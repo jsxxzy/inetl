@@ -6,6 +6,4 @@
 
 ## TODO
 
-- `cli` | `get` && `fix` && `save`
-
 - 桌面端
