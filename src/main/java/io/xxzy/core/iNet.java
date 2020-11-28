@@ -30,7 +30,7 @@ public class iNet {
    * @return 返回消息
    */
   public String LoginMessage(String u, String p) {
-    int code = this.Login(u, p);
+    int code = this.Login(u.trim(), p.trim());
     return constvar.GetMsg(code);
   }
 
